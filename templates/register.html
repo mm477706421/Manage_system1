@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block title %}
+    注册系统
+{% endblock %}
+    {% block content %}
+        <div class="container">
+        <div class="col-md-4 col-md-offset-4">
+        <h2 class="text-center">欢迎注册</h2>
+        <form class="form-register" action="/register/" method="POST">
+                {% csrf_token %}
+            <div class="form-group">
+                {{ form.users.label_tag }}{{ form.users }}
+            </div>
+            <div class="form-group">
+                {{ form.passwd.label_tag }}{{ form.passwd }}
+            </div>
+            <div class="form-group">
+                {{ form.passwdconfirm.label_tag }}{{ form.passwdconfirm }}
+            </div>
+            <div class="form-group">
+                {{ form.email.label_tag }}{{ form.email }}
+            </div>
+
+            <div class="form-group">
+                {{ form.confirm.label_tag }} {{ form.confirm }}
+            </div>
+            <div align="center">
+            <label style="color: red;text-align: center"> {{ form.confirm.errors }}</label>
+            <label style="color: red;text-align: center">{{ msg }}{{ error_msg }}</label></br>
+            </div>
+            <div align="center"><button type="reset" class="btn btn-primary pull-left" onclick="codes()">刷新验证码</button>
+            <button type="submit" class="btn btn-primary pull-right">提交</button></div>
+       </form></div>
+        </div>
+        <script>
+        function codes() {
+            url = '/captcha/refresh?' + Math.random()
+            $.get(url, function (result) {
+                console.log(result.image_url)
+                $('img[class="captcha"]').attr('src', result.image_url)
+                $('#id_captcha_0').attr('value', result.key)
+
+            })
+        }
+        $('img[class="captcha"]').mousedown(function () {
+            console.log('备点了')
+            codes()
+        })
+        </script>
+    {% endblock %}

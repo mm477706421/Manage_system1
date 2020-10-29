@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}
+添加新异常行为
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+    <div class="col-md-4 col-md-offset-4">
+        {% if not is_login %}
+            <h3>{{ error_msg }}</h3>
+        {% else %}
+            <form method="post" action="/addEvent">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.name.label_tag }}{{ form.name }}
+            </div>
+             <div class="form-group">
+                {{ form.detail.label_tag }}{{ form.detail }}
+            </div>
+            <div class="form-group">
+                {{ form.yuanxi.label_tag }}{{ form.yuanxi }}{{ form.date.label_tag }}{{ form.date }}
+            </div>
+            </form>
+        {% endif %}
+    </div>
+    </div>
+{% endblock %}
