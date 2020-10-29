@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}
+    管理系统
+{% endblock %}
+    {% block content %}
+
+            <div>
+            {% if request.session.is_login %}
+                <div class="container">
+                    <h3>你好,{{ request.session.user_name }}！欢迎回来！</h3>
+                    <div id="main" style="width: 600px;height:400px;">
+
+                    </div>
+                    <button onclick="javascript:window.location.href='/addEvent/'" type="button" class="btn btn-primary col-md-pull-0">新增新异常行为</button>
+                </div>
+            {% else %}
+                <div class="container">
+                    <h3>你尚未登录，只能访问公开内容！</h3>
+                </div>
+            {% endif %}
+            </div>
+
+
+
+        <div align="center">
+            <a style="color: darkred;font-size: large;text-align: center">
+                {{ msg }}
+                {{ login_info }}
+            </a>
+        </div>
+    {% endblock %}
